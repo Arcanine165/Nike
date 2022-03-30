@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Nike</a>
+          <a class="navbar-brand" href="./index.html">Nike</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -26,8 +26,25 @@
                 <a class="nav-link" aria-current="page" href="#">Nosotros</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Carrito</a>
-                    
+                <div class="dropdown">
+                  <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Carrito
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <table class="table">
+                      <thead>
+                          <th>Foto</th>
+                          <th>Modelo</th>
+                          <th>Descripcion</th>
+                          <th>Precio</th>
+                          <th>Cantidad</th>
+                      </thead>
+                      <tbody id="tbody">
+                        
+                      </tbody>
+                  </table>
+                  </div>
+                </div>
                 
               </li>
               
