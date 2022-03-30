@@ -1,0 +1,17 @@
+
+.card{
+    margin: 10px;
+}
+
+.carrito{
+    width: 40px;
+    background-color: #FFFF;
+    border-radius: 0%;
+}
+.nav-item{
+    display: flex;
+    align-items: center;
+}
+.card:hover{
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, .5);
+}
