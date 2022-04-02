@@ -7,12 +7,13 @@ const dropItems = document.querySelector('.dropdown-menu')
 const dropDown = document.querySelector('#carrito');
 const showedtable = document.querySelector('.table');
 
-console.log(dropDown)
+
 let carritoCompras = [];
 cargarventListeners();
-console.log()
+
 function cargarventListeners(){
     //EventListeners
+    table.addEventListener('click',eliminarElemento)
     listaTenis.addEventListener('click',agregarCarrito)
     //Funcionalidad al responsive
     navButton.addEventListener('click',responsiveNav);
@@ -36,6 +37,24 @@ function agregarCarrito(e){
         leerData(productoSelec);
         
     }
+}
+function eliminarElemento(e){
+    e.preventDefault();
+    
+    if(e.target.type == 'button'){
+        const index = carritoCompras.findIndex(element => e.target.getAttribute('id') == element.id);
+        if(carritoCompras[index].cantidad > 1){
+            console.log()
+            carritoCompras[index].cantidad--;
+            
+        }else{
+            carritoCompras.splice(index,1);
+        }
+        saveInLocalStorage();
+        limpiarHtml();
+        agregarAlHtml();
+    }
+    
 }
 function responsiveNav(){
     if(!nav.classList.contains('show')){
@@ -102,7 +121,7 @@ function agregarAlHtml(){
             <td><p>${producto.description}</p></td>
             <td><p>${producto.price}</p></td>
             <td><p>${producto.cantidad}</p></td>
-            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
+            <td><button type="button" class="btn btn-danger" id=${producto.id}>Eliminar</button></td>
         `
         table.appendChild(col)
     })
@@ -116,3 +135,4 @@ function limpiarHtml(){
 function saveInLocalStorage(){
     localStorage.setItem('carrito',JSON.stringify(carritoCompras));
 }
+
