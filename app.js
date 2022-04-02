@@ -6,7 +6,7 @@ const table = document.querySelector('#tbody')
 const dropItems = document.querySelector('.dropdown-menu')
 const dropDown = document.querySelector('#carrito');
 const showedtable = document.querySelector('.table');
-
+const vaciar = document.querySelector('#vaciar');
 
 let carritoCompras = [];
 cargarventListeners();
@@ -22,9 +22,10 @@ function cargarventListeners(){
         carritoCompras = JSON.parse(localStorage.getItem('carrito') || []);
         agregarAlHtml();
     })
+    vaciar.addEventListener('click',vaciarCarrito)
     //DropDownCarrito
     window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("click",dropOut)
-    showedtable.addEventListener('mouseleave',dropOut);
+    dropItems.addEventListener('mouseleave',dropOut);
 
 }
 
@@ -136,3 +137,9 @@ function saveInLocalStorage(){
     localStorage.setItem('carrito',JSON.stringify(carritoCompras));
 }
 
+function vaciarCarrito(){
+    carritoCompras = [];
+    saveInLocalStorage();
+    agregarAlHtml();
+
+}
