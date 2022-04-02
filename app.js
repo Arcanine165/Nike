@@ -4,19 +4,26 @@ const addTo = document.getElementsByTagName('button');
 const listaTenis = document.querySelector('#lista-tenis');
 const table = document.querySelector('#tbody')
 const dropItems = document.querySelector('.dropdown-menu')
-const dropDown = document.querySelector('#dropdownMenuButton');
+const dropDown = document.querySelector('#carrito');
+const showedtable = document.querySelector('.table');
+
+console.log(dropDown)
 let carritoCompras = [];
 cargarventListeners();
-
+console.log()
 function cargarventListeners(){
     //EventListeners
     listaTenis.addEventListener('click',agregarCarrito)
     //Funcionalidad al responsive
     navButton.addEventListener('click',responsiveNav);
-
+    //LocalStorage
+    document.addEventListener('DOMContentLoaded',() => {
+        carritoCompras = JSON.parse(localStorage.getItem('carrito') || []);
+        agregarAlHtml();
+    })
     //DropDownCarrito
-    dropDown.addEventListener('click',drop)
-
+    window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("click",dropOut)
+    showedtable.addEventListener('mouseleave',dropOut);
 
 }
 
@@ -41,10 +48,12 @@ function responsiveNav(){
 function drop(){
     if(!dropItems.classList.contains('show')){
         dropItems.classList.add('show')
-    }else{
-        dropItems.classList.remove('show')
     }
+
     
+}
+function dropOut(){
+    dropItems.classList.remove('show');
 }
 function leerData(producto){
     console.log(producto.parentElement.querySelector('img').getAttribute('src'))
@@ -59,7 +68,8 @@ function leerData(producto){
             }
         })
         carritoCompras = [...productos];
-        console.log(carritoCompras)
+        console.log(carritoCompras);
+        saveInLocalStorage(carritoCompras)
         agregarAlHtml();
     }
     else{
@@ -73,7 +83,8 @@ function leerData(producto){
     }
    
     carritoCompras = [...carritoCompras,article];
-    console.log(carritoCompras)
+    console.log(carritoCompras);
+    saveInLocalStorage(carritoCompras);
     agregarAlHtml();
 }
 }
@@ -91,6 +102,7 @@ function agregarAlHtml(){
             <td><p>${producto.description}</p></td>
             <td><p>${producto.price}</p></td>
             <td><p>${producto.cantidad}</p></td>
+            <td><button type="button" class="btn btn-danger">Eliminar</button></td>
         `
         table.appendChild(col)
     })
@@ -99,4 +111,8 @@ function agregarAlHtml(){
 
 function limpiarHtml(){
     table.innerHTML = '';
+}
+
+function saveInLocalStorage(){
+    localStorage.setItem('carrito',JSON.stringify(carritoCompras));
 }
