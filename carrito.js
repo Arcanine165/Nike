@@ -19,7 +19,6 @@ function agregarAlHtml(){
         
             <td><img src="${producto.imagen}" class="img-fluid"></td>
             <td><p>${producto.name}</p></td>
-            <td><p>${producto.description}</p></td>
             <td><p>${producto.price}</p></td>
             <td><p>${producto.cantidad}</p></td>
             <td><button type="button" class="btn btn-danger">Eliminar</button></td>
