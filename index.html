@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Nike</a>
+          <a class="navbar-brand" href="./index.html">Nike</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -26,8 +26,26 @@
                 <a class="nav-link" aria-current="page" href="#">Nosotros</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="#">Carrito</a>
-                    
+                <div class="dropdown">
+                  <a class="nav-link" href="./carrito.html" id="carrito">Carrito</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <table class="table">
+                      <thead>
+                          <th>Foto</th>
+                          <th>Modelo</th>
+                          <th>Descripcion</th>
+                          <th>Precio</th>
+                          <th>Cantidad</th>
+                      </thead>
+                      <tbody id="tbody">
+                        <td>
+                          <button class="btn btn-light">Vaciar Carrito</button>
+                        </td>
+                      </tbody>
+                      
+                  </table>
+                  </div>
+                </div>
                 
               </li>
               
@@ -67,7 +85,25 @@
         </div>
         
     </section>
+    <div class="card-footer">
+      <footer class="container">
+       
+        <div class="container">
+          <div class="row">
+            <div class="col">Column</div>
+            <div class="col">Column</div>
+            <div class="w-100"></div>
+            <div class="col">Column</div>
+            <div class="col">Column</div>
+            <div class="w-100"></div>
+            <div class="col">Column</div>
+            <div class="col">Column</div>
+          </div>
+      </footer>
+    </div>
+
     <script src="https://kit.fontawesome.com/0370d666db.js" crossorigin="anonymous"></script>
     <script src="./app.js"></script>
+    
 </body>
 </html>
