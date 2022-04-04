@@ -7,7 +7,7 @@ const dropItems = document.querySelector('.dropdown-menu')
 const dropDown = document.querySelector('#carrito');
 const showedtable = document.querySelector('.table');
 const vaciar = document.querySelector('#vaciar');
-
+const body = document.querySelector('body')
 let carritoCompras = [];
 cargarventListeners();
 
@@ -44,9 +44,11 @@ function eliminarElemento(e){
     
     if(e.target.type == 'button'){
         const index = carritoCompras.findIndex(element => e.target.getAttribute('id') == element.id);
+        console.log(e.target)
         if(carritoCompras[index].cantidad > 1){
-            console.log()
+            let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
             carritoCompras[index].cantidad--;
+            carritoCompras[index].price = precioOriginal * carritoCompras[index].cantidad;
             
         }else{
             carritoCompras.splice(index,1);
@@ -82,7 +84,9 @@ function leerData(producto){
     if(exits){
         const productos = carritoCompras.map(product => {
             if(product.name === producto.querySelector('.card-title').textContent){
+                const precioOriginal = product.price / product.cantidad;
                 product.cantidad++;
+                product.price = precioOriginal * product.cantidad;
                 return product;
             }else{
                 return product;
@@ -92,6 +96,7 @@ function leerData(producto){
         console.log(carritoCompras);
         saveInLocalStorage(carritoCompras)
         agregarAlHtml();
+        popAddItem();
     }
     else{
     const article = {
@@ -107,13 +112,13 @@ function leerData(producto){
     console.log(carritoCompras);
     saveInLocalStorage(carritoCompras);
     agregarAlHtml();
+    popAddItem();
 }
 }
 
 function agregarAlHtml(){
     limpiarHtml();
     carritoCompras.forEach(producto => {
-        const lel = producto.imagen;
         const col = document.createElement('tr');
         
         col.innerHTML = `
@@ -142,4 +147,25 @@ function vaciarCarrito(){
     saveInLocalStorage();
     agregarAlHtml();
 
+}
+ function popAddItem(){
+    console.log('AGREGADO')
+    const navbar = document.querySelector('nav');
+    console.log(navbar.nextElementSibling)
+    const element = document.createElement('div');
+    
+    element.classList.add('card','text-white','bg-secondary', 'center-screen','text-center')
+    
+    const p = document.createElement('p');
+    p.innerHTML ="Articulo Agregado";
+    
+    element.appendChild(p);
+    insertAfter(element,navbar)
+    setInterval(()=>{
+        body.removeChild(element)
+    },2000)
+
+ }
+ function insertAfter(newNode, existingNode) {
+    existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
