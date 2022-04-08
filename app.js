@@ -1,4 +1,4 @@
-const navButton = document.querySelector('.navbar-toggler')
+const navButton = document.querySelector('.navbar-toggler');
 const nav = document.querySelector('#navbarNav');
 const addTo = document.getElementsByTagName('button');
 const listaTenis = document.querySelector('#lista-tenis');
@@ -8,7 +8,9 @@ const dropDown = document.querySelector('#carrito');
 const showedtable = document.querySelector('.table');
 const vaciar = document.querySelector('#vaciar');
 const body = document.querySelector('body')
+const container = document.querySelector('.container');
 let carritoCompras = [];
+
 cargarventListeners();
 
 function cargarventListeners(){
@@ -26,7 +28,7 @@ function cargarventListeners(){
     //DropDownCarrito
     window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("click",dropOut)
     dropItems.addEventListener('mouseleave',dropOut);
-
+    container.addEventListener('mouseover',dropOut)
 }
 
 function agregarCarrito(e){
