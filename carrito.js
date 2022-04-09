@@ -2,7 +2,7 @@ const table = document.querySelector('#tbody')
 let carritoCompras = [];
 const navButton = document.querySelector('.navbar-toggler');
 const nav = document.querySelector('#navbarNav');
-console.log(navButton)
+
 startEventListeners();
 function startEventListeners(){
     document.addEventListener('DOMContentLoaded',() => {

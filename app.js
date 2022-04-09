@@ -9,26 +9,30 @@ const showedtable = document.querySelector('.table');
 const vaciar = document.querySelector('#vaciar');
 const body = document.querySelector('body')
 const container = document.querySelector('.container');
+const total = document.querySelector('#total');
 let carritoCompras = [];
 
 cargarventListeners();
 
 function cargarventListeners(){
     //EventListeners
-    table.addEventListener('click',eliminarElemento)
-    listaTenis.addEventListener('click',agregarCarrito)
+    table.addEventListener('click',eliminarElemento);
+    listaTenis.addEventListener('click',agregarCarrito);
     //Funcionalidad al responsive
     navButton.addEventListener('click',responsiveNav);
     //LocalStorage
     document.addEventListener('DOMContentLoaded',() => {
         carritoCompras = JSON.parse(localStorage.getItem('carrito') || []);
+        
         agregarAlHtml();
     })
-    vaciar.addEventListener('click',vaciarCarrito)
+    vaciar.addEventListener('click',vaciarCarrito);
     //DropDownCarrito
-    window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("click",dropOut)
+    window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("click",dropOut);
     dropItems.addEventListener('mouseleave',dropOut);
-    container.addEventListener('mouseover',dropOut)
+    container.addEventListener('mouseover',dropOut);
+    
+
 }
 
 function agregarCarrito(e){
@@ -36,7 +40,7 @@ function agregarCarrito(e){
     if(e.target.classList.contains('agregar-carrito')){
        
         const productoSelec = e.target.parentElement;
-        console.log(productoSelec.parentElement.querySelector('img').getAttribute('src'))
+        
         leerData(productoSelec);
         
     }
@@ -46,7 +50,7 @@ function eliminarElemento(e){
     
     if(e.target.type == 'button'){
         const index = carritoCompras.findIndex(element => e.target.getAttribute('id') == element.id);
-        console.log(e.target)
+        
         if(carritoCompras[index].cantidad > 1){
             let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
             carritoCompras[index].cantidad--;
@@ -56,6 +60,7 @@ function eliminarElemento(e){
             carritoCompras.splice(index,1);
         }
         saveInLocalStorage();
+        
         limpiarHtml();
         agregarAlHtml();
     }
@@ -81,7 +86,7 @@ function dropOut(){
     
 }
 function leerData(producto){
-    console.log(producto.parentElement.querySelector('img').getAttribute('src'))
+    
     const exits = carritoCompras.some(product => product.name === producto.querySelector('.card-title').textContent);
     if(exits){
         const productos = carritoCompras.map(product => {
@@ -89,13 +94,14 @@ function leerData(producto){
                 const precioOriginal = product.price / product.cantidad;
                 product.cantidad++;
                 product.price = precioOriginal * product.cantidad;
+                
                 return product;
             }else{
                 return product;
             }
         })
         carritoCompras = [...productos];
-        console.log(carritoCompras);
+        
         saveInLocalStorage(carritoCompras)
         agregarAlHtml();
         popAddItem();
@@ -111,7 +117,7 @@ function leerData(producto){
     }
    
     carritoCompras = [...carritoCompras,article];
-    console.log(carritoCompras);
+    
     saveInLocalStorage(carritoCompras);
     agregarAlHtml();
     popAddItem();
@@ -133,7 +139,7 @@ function agregarAlHtml(){
         `
         table.appendChild(col)
     })
-    
+    calcularTotal();
 }
 
 function limpiarHtml(){
@@ -142,6 +148,7 @@ function limpiarHtml(){
 
 function saveInLocalStorage(){
     localStorage.setItem('carrito',JSON.stringify(carritoCompras));
+    
 }
 
 function vaciarCarrito(){
@@ -151,9 +158,9 @@ function vaciarCarrito(){
 
 }
  function popAddItem(){
-    console.log('AGREGADO')
+    
     const navbar = document.querySelector('nav');
-    console.log(navbar.nextElementSibling)
+    
     const element = document.createElement('div');
     
     element.classList.add('card','text-white','bg-secondary', 'center-screen','text-center')
@@ -163,11 +170,20 @@ function vaciarCarrito(){
     
     element.appendChild(p);
     insertAfter(element,navbar)
-    setInterval(()=>{
+    setTimeout(()=>{
         body.removeChild(element)
     },2000)
 
  }
  function insertAfter(newNode, existingNode) {
     existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
+function calcularTotal(){
+    let precioTotal = 0;
+    carritoCompras.forEach(element => {
+        precioTotal += element.price
+        
+    })
+    total.innerHTML =`Total: $${precioTotal}`;
 }
