@@ -1,5 +1,8 @@
 const table = document.querySelector('#tbody')
 let carritoCompras = [];
+const navButton = document.querySelector('.navbar-toggler');
+const nav = document.querySelector('#navbarNav');
+
 startEventListeners();
 function startEventListeners(){
     document.addEventListener('DOMContentLoaded',() => {
@@ -8,6 +11,7 @@ function startEventListeners(){
         console.log(carritoCompras)
     })
     table.addEventListener('click',eliminarElemento)
+    navButton.addEventListener('click',responsiveNav);
 }
 
 
@@ -54,4 +58,13 @@ function limpiarHtml(){
 
 function saveInLocalStorage(){
     localStorage.setItem('carrito',JSON.stringify(carritoCompras));
+}
+
+function responsiveNav(){
+    if(!nav.classList.contains('show')){
+        nav.classList.add('show')
+    }else{
+        nav.classList.remove('show')
+    }
+    
 }
