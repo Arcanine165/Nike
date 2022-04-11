@@ -16,7 +16,7 @@ cargarventListeners();
 
 function cargarventListeners(){
     //EventListeners
-    table.addEventListener('click',eliminarElemento);
+    
     listaTenis.addEventListener('click',agregarCarrito);
     //Funcionalidad al responsive
     navButton.addEventListener('click',responsiveNav);
@@ -46,11 +46,9 @@ function agregarCarrito(e){
     }
 }
 function eliminarElemento(e){
-    e.preventDefault();
     
-    if(e.target.type == 'button'){
-        const index = carritoCompras.findIndex(element => e.target.getAttribute('id') == element.id);
-        
+        const index = carritoCompras.findIndex(element => e.id == element.id);
+        console.log(index)
         if(carritoCompras[index].cantidad > 1){
             let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
             carritoCompras[index].cantidad--;
@@ -63,7 +61,7 @@ function eliminarElemento(e){
         
         limpiarHtml();
         agregarAlHtml();
-    }
+    
     
 }
 function responsiveNav(){
@@ -123,7 +121,15 @@ function leerData(producto){
     popAddItem();
 }
 }
-
+function sumar(e){
+    const index = carritoCompras.findIndex(element => e.id == element.id);
+    let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
+    carritoCompras[index].cantidad++;
+    carritoCompras[index].price = precioOriginal * carritoCompras[index].cantidad;
+    saveInLocalStorage();
+    limpiarHtml();
+    agregarAlHtml();
+}
 function agregarAlHtml(){
     limpiarHtml();
     carritoCompras.forEach(producto => {
@@ -135,7 +141,9 @@ function agregarAlHtml(){
             <td><p>${producto.name}</p></td>
             <td><p>${producto.price}</p></td>
             <td><p>${producto.cantidad}</p></td>
-            <td><button type="button" class="btn btn-danger" id=${producto.id}>Eliminar</button></td>
+            <td><button type="button" class="btn btn-success" onClick = "sumar(this)" id=${producto.id}>+</button></td>
+            <td><button type="button" class="btn btn-danger" onClick = "eliminarElemento(this)" id=${producto.id} >-</button></td>
+            
         `
         table.appendChild(col)
     })
