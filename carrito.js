@@ -10,7 +10,7 @@ function startEventListeners(){
         agregarAlHtml();
         console.log(carritoCompras)
     })
-    table.addEventListener('click',eliminarElemento)
+    
     navButton.addEventListener('click',responsiveNav);
 }
 
@@ -26,31 +26,32 @@ function agregarAlHtml(){
             <td><p>${producto.name}</p></td>
             <td><p>${producto.price}</p></td>
             <td><p>${producto.cantidad}</p></td>
-            <td><button type="button" class="btn btn-danger" id=${producto.id}>Eliminar</button></td>
+            <td><button type="button" class="btn btn-success" onClick = "sumar(this)" id=${producto.id}>+</button></td>
+            <td><button type="button" class="btn btn-danger" onClick = "eliminarElemento(this)" id=${producto.id} >-</button></td>
+            
         `
         table.appendChild(col)
     })
-    
+    calcularTotal();
 }
 function eliminarElemento(e){
-    e.preventDefault();
     
-    if(e.target.type == 'button'){
-        const index = carritoCompras.findIndex(element => e.target.getAttribute('id') == element.id);
-        console.log(e.target)
-        if(carritoCompras[index].cantidad > 1){
-            let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
-            carritoCompras[index].cantidad--;
-            carritoCompras[index].price = precioOriginal * carritoCompras[index].cantidad;
-            
-        }else{
-            carritoCompras.splice(index,1);
-        }
-        saveInLocalStorage();
-        limpiarHtml();
-        agregarAlHtml();
+    const index = carritoCompras.findIndex(element => e.id == element.id);
+    console.log(index)
+    if(carritoCompras[index].cantidad > 1){
+        let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
+        carritoCompras[index].cantidad--;
+        carritoCompras[index].price = precioOriginal * carritoCompras[index].cantidad;
+        
+    }else{
+        carritoCompras.splice(index,1);
     }
+    saveInLocalStorage();
     
+    limpiarHtml();
+    agregarAlHtml();
+
+
 }
 function limpiarHtml(){
     table.innerHTML = '';
@@ -67,4 +68,21 @@ function responsiveNav(){
         nav.classList.remove('show')
     }
     
+}
+function sumar(e){
+    const index = carritoCompras.findIndex(element => e.id == element.id);
+    let precioOriginal = carritoCompras[index].price / carritoCompras[index].cantidad;
+    carritoCompras[index].cantidad++;
+    carritoCompras[index].price = precioOriginal * carritoCompras[index].cantidad;
+    saveInLocalStorage();
+    limpiarHtml();
+    agregarAlHtml();
+}
+function calcularTotal(){
+    let precioTotal = 0;
+    carritoCompras.forEach(element => {
+        precioTotal += element.price
+        
+    })
+    total.innerHTML =`Total: $${precioTotal}`;
 }
