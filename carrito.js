@@ -2,6 +2,7 @@ const table = document.querySelector('#tbody')
 let carritoCompras = [];
 const navButton = document.querySelector('.navbar-toggler');
 const nav = document.querySelector('#navbarNav');
+const dropDown = document.querySelector('#carrito');
 
 startEventListeners();
 function startEventListeners(){
@@ -12,6 +13,7 @@ function startEventListeners(){
     })
     
     navButton.addEventListener('click',responsiveNav);
+
 }
 
 
@@ -62,6 +64,7 @@ function saveInLocalStorage(){
 }
 
 function responsiveNav(){
+    
     if(!nav.classList.contains('show')){
         nav.classList.add('show')
     }else{
@@ -86,3 +89,4 @@ function calcularTotal(){
     })
     total.innerHTML =`Total: $${precioTotal}`;
 }
+
