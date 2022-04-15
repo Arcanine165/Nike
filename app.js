@@ -28,7 +28,7 @@ function cargarventListeners(){
     })
     vaciar.addEventListener('click',vaciarCarrito);
     //DropDownCarrito
-    window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("click",dropOut);
+    window.innerWidth > 800 ? dropDown.addEventListener("mouseenter",drop) : dropDown.addEventListener("mouserover",dropOut);
     dropItems.addEventListener('mouseleave',dropOut);
     container.addEventListener('mouseover',dropOut);
     
@@ -168,7 +168,7 @@ function vaciarCarrito(){
  function popAddItem(){
     
     const navbar = document.querySelector('nav');
-    
+    const header = document.querySelector('header');
     const element = document.createElement('div');
     
     element.classList.add('card','text-white','bg-secondary', 'center-screen','text-center')
@@ -177,9 +177,9 @@ function vaciarCarrito(){
     p.innerHTML ="Articulo Agregado";
     
     element.appendChild(p);
-    insertAfter(element,navbar)
+    insertAfter(element,navbar);
     setTimeout(()=>{
-        body.removeChild(element)
+        header.removeChild(element);
     },2000)
 
  }
